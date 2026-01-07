@@ -61,12 +61,12 @@ The following screenshots demonstrate successful deployment and verification of 
 ### Wazuh Manager Service Status
 The screenshot below confirms that the Wazuh Manager service is active and running, indicating that the SIEM backend is operational.
 
-![Wazuh Manager Running](screenshots/wazuh-manager-status.png)
+![Wazuh Manager Running](Screenshots/wazuh-manager-status.png)
 
 ### Wazuh Dashboard Interface
 The screenshot below shows the Wazuh web dashboard, confirming successful access to the SIEM interface and readiness for endpoint monitoring.
 
-![Wazuh Dashboard](screenshots/wazuh-dashboard.png)
+![Wazuh Dashboard](Screenshots/wazuh-dashboard.png)
 
 ---
 
