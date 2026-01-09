@@ -1,90 +1,113 @@
-# SOC Detection & Incident Analysis Lab
+# SOC Detection & Monitoring Project
 
 ## Overview
-This project demonstrates the deployment and verification of a Security Information and Event Management (SIEM) platform within a virtualized lab environment. The goal of the lab is to build foundational Security Operations Center (SOC) skills, including SIEM deployment, monitoring, and preparation for endpoint log ingestion and threat detection.
+This project documents the design, deployment, and validation of a small-scale Security Operations Center (SOC) lab using the **Wazuh SIEM** platform. The lab focuses on centralized log collection, endpoint monitoring, and foundational SOC operations using a Windows endpoint and a Linux-based SIEM server.
 
-The project is designed to support hands-on cybersecurity learning and to serve as a practical portfolio artifact for SOC and cybersecurity internship applications.
+The goal of this project is to build practical, hands-on experience aligned with SOC analyst and cybersecurity internship roles.
 
 ---
 
 ## Objectives
 - Deploy a functional SIEM platform
 - Establish centralized security monitoring
-- Verify backend SIEM services and web dashboard access
-- Prepare the environment for endpoint log ingestion and detection
-- Document deployment decisions and validation steps
+- Onboard and monitor a Windows endpoint
+- Verify agent connectivity and log ingestion
+- Practice SOC-style troubleshooting and validation
 
 ---
 
-## Environment
-- **Host Operating System:** Windows  
-- **Virtualization Platform:** Oracle VirtualBox  
-- **SIEM Platform:** Wazuh  
-- **SIEM Operating System:** Ubuntu Server 22.04 LTS  
+## Lab Environment
+
+### Host System
+- **Operating System:** Windows
+- **Virtualization Platform:** Oracle VirtualBox
+
+### Virtual Machines
+- **SIEM Server**
+  - OS: Ubuntu Server 22.04 LTS
+  - Role: Wazuh Manager, Indexer, Dashboard
+
+- **Endpoint**
+  - OS: Windows 10
+  - Role: Monitored workstation running Wazuh agent
 
 ---
 
 ## Architecture
-The lab consists of a centralized SIEM server running Wazuh on Ubuntu Server within a VirtualBox virtual machine. Networking is configured using a NAT-based design to ensure reliable outbound connectivity during deployment.
+The lab uses a **shared NAT Network** within VirtualBox to allow secure communication between virtual machines while maintaining isolation from the host network.
 
-To allow secure access to the SIEM web interface from the host system, port forwarding is used to expose the Wazuh dashboard without directly bridging the virtual machine to the local network.
+- The Wazuh SIEM server and Windows endpoint reside on the same NAT Network
+- The Wazuh dashboard is accessed from within the lab environment
+- Agent communication occurs over standard Wazuh TCP ports (1514/1515)
 
----
-
-## Implementation Status
-- [x] VirtualBox installed and configured
-- [x] Ubuntu Server deployed for SIEM
-- [x] Network connectivity verified
-- [x] System packages updated
-- [x] Wazuh SIEM installed (Manager, Indexer, Dashboard)
-- [x] Wazuh services verified as running
-- [x] Wazuh dashboard accessed via port forwarding
-- [ ] Windows endpoint deployment
-- [ ] Wazuh agent installation
-- [ ] Log ingestion and alert generation
-- [ ] Incident analysis and reporting
+This design prioritizes stability, simplicity, and security while supporting SOC functionality.
 
 ---
 
 ## Tools & Technologies
-- Ubuntu Server 22.04 LTS  
-- Wazuh SIEM  
-- Oracle VirtualBox  
-- Linux system administration tools  
+- Wazuh SIEM (Manager, Indexer, Dashboard)
+- Ubuntu Server 22.04 LTS
+- Windows 10
+- Oracle VirtualBox
+- PowerShell
+- Linux system administration tools
 
 ---
 
-## SIEM Verification
+## Implementation Summary
 
-The following screenshots demonstrate successful deployment and verification of the Wazuh SIEM platform.
+### SIEM Deployment
+- Installed Ubuntu Server as the SIEM host
+![Wazuh Dashboard](Screenshots/ubuntu_server.png)
 
-### Wazuh Manager Service Status
-The screenshot below confirms that the Wazuh Manager service is active and running, indicating that the SIEM backend is operational.
+- Deployed the Wazuh all-in-one SIEM installation
+- Verified core services (manager, indexer, dashboard)
 
-![Wazuh Manager Running](Screenshots/wazuh-manager-status.png)
 
-### Wazuh Dashboard Interface
-The screenshot below shows the Wazuh web dashboard, confirming successful access to the SIEM interface and readiness for endpoint monitoring.
+- Confirmed dashboard accessibility
 
 ![Wazuh Dashboard](Screenshots/wazuh-dashboard.png)
 
+![Wazuh Dashboard](Screenshots/wazuh-manager-status.png)
+
+
+### Endpoint Onboarding
+- Deployed a Windows 10 endpoint virtual machine
+- Installed the Wazuh Windows agent using command-based enrollment
+
+![Wazuh Dashboard](Screenshots/wazuh_agent_install.png)
+
+- Resolved agent configuration issues (manager address)
+- Successfully started the Wazuh agent service
+  
+
+
+
 ---
 
-## Design Decisions & Challenges
-During initial setup, multiple network configurations were evaluated. To reduce complexity and ensure deployment stability, the design was simplified to a NAT-based architecture. Port forwarding was implemented to securely expose the Wazuh dashboard to the host system while maintaining isolation of the virtual machine.
+## Verification
+- Wazuh Manager service confirmed running on the SIEM server
+- Wazuh Dashboard accessible and functional
+- Verified agent registration and active status in the Wazuh dashboard
+- Windows endpoint appears as **Active** in the agent list
+- Centralized log ingestion from the Windows endpoint verified
 
-This approach allowed focus to remain on SOC functionality rather than extended infrastructure troubleshooting.
+- ![Wazuh Dashboard](Screenshots/wazuh-dashboard-agent.png)
 
----
 
-## Next Steps
-- Deploy a Windows endpoint for monitoring
-- Install Sysmon for enhanced endpoint telemetry
-- Install and configure the Wazuh agent
-- Simulate attack activity and analyze detections
-- Produce incident response documentation and reports
 
 ---
 
-## Disclaimer
-This project is conducted in a controlled lab environment for educational and defensive security purposes only. No unauthorized systems or networks are targeted.
+## Challenges & Resolutions
+Several challenges were encountered during setup, including:
+- VirtualBox NAT vs. NAT Network communication limitations
+- Dashboard accessibility after network changes
+- Agent registration issues caused by incorrect manager configuration
+
+These were resolved through:
+- Migrating to a shared NAT Network for VM-to-VM communication
+- Restarting Wazuh services in the correct order
+- Correcting the Wazuh agent configuration on the Windows endpoint
+
+These troubleshooting steps reflect real-world SOC deployment and maintenance tasks.
+
