@@ -95,6 +95,30 @@ This design prioritizes stability, simplicity, and security while supporting SOC
 - ![Wazuh Dashboard](Screenshots/wazuh-dashboard-agent.png)
 
 
+--- 
+
+## BRUTE FORCE ATTACK DETECTION REPORT
+
+After multiple consecutive failed login attempts using random passwords against the same user account, the Wazuh agent successfully detected a brute force attack.
+A total of 9 failed authentication attempts were recorded, resulting in an account lockout.
+
+**Alert Name:** Brute Force Attack Attempt
+**Date/Time:** 2026-01-14 19:35:04
+**Affected Host:** Windows-VM
+**Rule ID / Severity:** 60115 – Level 9
+**MITRE ATT&CK Technique:** Brute Force (Credential Access)
+**Description:** Multiple failed login attempts leading to user account lockout.
+
+**Analyst Findings:**
+Repeated logon failures due to invalid credentials were detected, indicating an attempted brute force attack against a valid user account. The account lockout mechanism successfully prevented unauthorized access.
+
+**True/False Positive:** True Positive
+
+**Recommended Action:**
+Reset the affected user’s password, review the source of the login attempts, confirm the activity was unauthorized, and continue monitoring for further suspicious authentication activity.
+
+- ![Wazuh Dashboard](Screenshots/wazuh_dashboard_brute_force_alert.png)
+- ![Wazuh Dashboard](Screenshots/wazuh_dashboard_brute_force_logs.png)
 
 ---
 
