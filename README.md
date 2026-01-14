@@ -130,6 +130,31 @@ Reset the affected user’s password, review the source of the login attempts, c
 
 ---
 
+
+## PRIVILEGE ESCALATION DETECTION REPORT
+After a user account was elevated from a standard user to an administrator, the Wazuh agent detected a privilege escalation–related event. The change modified the account’s permissions, granting administrative access on the system.
+
+**Alert Name:** Privilege Escalation – User Granted Administrator Access  
+**Date/Time:** 2026-01-14 15:14:10  
+**Affected Host:** Windows-VM  
+**Rule ID / Severity:** 60154 – Level 12  
+**MITRE ATT&CK Technique:** Defense Evasion, Privilege Escalation  
+**Description:** User account privileges were modified, granting administrator-level access.  
+
+**Analyst Findings:**
+A previously standard user account was elevated to administrator, generating Windows Security events associated with account privilege changes. This activity represents a potential privilege escalation scenario and requires verification of authorization.
+
+**True/False Positive:** True Positive
+
+**Recommended Action:**
+Confirm whether the privilege change was authorized, remove unauthorized administrative access, reset affected credentials if necessary, and monitor for further account management activity.
+
+![Wazuh Dashboard](Screenshots/vm-privelege-escalation-action.png)
+![Wazuh Dashboard](Screenshots/privelege-escalation-alert.png)
+![Wazuh Dashboard](Screenshots/privelege-escalation-logs.png)
+
+---
+
 ## Challenges & Resolutions
 Several challenges were encountered during setup, including:
 - VirtualBox NAT vs. NAT Network communication limitations
