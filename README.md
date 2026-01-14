@@ -16,6 +16,23 @@ The goal of this project is to build practical, hands-on experience aligned with
 
 ---
 
+## Project Architecture Diagram
+
+![Wazuh Dashboard](Screenshots/Project-Architectural-diagram.png)
+
+## Architecture
+The lab uses a **shared NAT Network** within VirtualBox to allow secure communication between virtual machines while maintaining isolation from the host network.
+
+- The Wazuh SIEM server and Windows endpoint reside on the same NAT Network
+- The Wazuh dashboard is accessed from within the lab environment
+- Agent communication occurs over standard Wazuh TCP ports (1514/1515)
+
+This design prioritizes stability, simplicity, and security while supporting SOC functionality.
+
+---
+
+
+
 ## Lab Environment
 
 ### Host System
@@ -33,16 +50,7 @@ The goal of this project is to build practical, hands-on experience aligned with
 
 ---
 
-## Architecture
-The lab uses a **shared NAT Network** within VirtualBox to allow secure communication between virtual machines while maintaining isolation from the host network.
 
-- The Wazuh SIEM server and Windows endpoint reside on the same NAT Network
-- The Wazuh dashboard is accessed from within the lab environment
-- Agent communication occurs over standard Wazuh TCP ports (1514/1515)
-
-This design prioritizes stability, simplicity, and security while supporting SOC functionality.
-
----
 
 ## Tools & Technologies
 - Wazuh SIEM (Manager, Indexer, Dashboard)
@@ -102,12 +110,12 @@ This design prioritizes stability, simplicity, and security while supporting SOC
 After multiple consecutive failed login attempts using random passwords against the same user account, the Wazuh agent successfully detected a brute force attack.
 A total of 9 failed authentication attempts were recorded, resulting in an account lockout.
 
-**Alert Name:** Brute Force Attack Attempt
-**Date/Time:** 2026-01-14 19:35:04
-**Affected Host:** Windows-VM
-**Rule ID / Severity:** 60115 – Level 9
-**MITRE ATT&CK Technique:** Brute Force (Credential Access)
-**Description:** Multiple failed login attempts leading to user account lockout.
+**Alert Name:** Brute Force Attack Attempt  
+**Date/Time:** 2026-01-14 19:35:04  
+**Affected Host:** Windows-VM  
+**Rule ID / Severity:** 60115 – Level 9  
+**MITRE ATT&CK Technique:** Brute Force (Credential Access)  
+**Description:** Multiple failed login attempts leading to user account lockout.  
 
 **Analyst Findings:**
 Repeated logon failures due to invalid credentials were detected, indicating an attempted brute force attack against a valid user account. The account lockout mechanism successfully prevented unauthorized access.
