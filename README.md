@@ -133,5 +133,5 @@ These were resolved through:
 - Restarting Wazuh services in the correct order
 - Correcting the Wazuh agent configuration on the Windows endpoint
 
-These troubleshooting steps reflect real-world SOC deployment and maintenance tasks.
+
 
